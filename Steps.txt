@@ -1,0 +1,33 @@
+--Serverless solution--done
+--try with lamda to read api --done
+--need lamda role with relevant permissions(Athena & S3)--done
+--s3 bucket stack -- done
+--Pre validation check--not required
+-- Loop url --done
+--Cron Job schedule--done
+--need deployer role for cloud formation stack--not required
+
+
+fields: ["date", "states", "total_cases", "testing_cases", "hospitalized_cases", "in_icu_cases", "on_ventilator_cases","death_cases"]
+col_types: ["sting", "bigint", "bigint","bigint","bigint","bigint","bigint","bigint"]
+
+        tbl_tuple = tuple(zip(fields, final_col_types))
+        tbl_create_col = ", ".join('%s %s' % (x,y) for x,y in tbl_tuple)
+        create_tbl_query = "CREATE TABLE IF NOT EXISTS {}.{} ({}) STORED AS ORC"\
+            .format(datalake_calc_loc, param_table, tbl_create_col)
+			
+(date string, states bigint, total_cases bigint, testing_cases bigint, hospitalized_cases bigint,\
+        in_icu_cases bigint, on_ventilator_cases bigint, death_cases bigint )
+		
+        header = 'date' + ',' + 'states' + ',' + 'total_cases' + ',' + 'testing_cases' + ','\
+            + 'hospitalized_cases' + ',' + 'in_icu_cases' + ',' + 'on_ventilator_cases' + ',' + 'death_cases'
+        item_lines.append(header)
+		
+    query = f"SELECT * FROM {database_name}.{table_name} where date='{date}' and \
+    states={states} and total_cases={total_cases}\
+    and testing_cases='{testing_cases}' and yield_curve_tbl='{a['yield_curve_tbl']}'\
+    and v_period={a['v_period']} and result_version='{a['result_version']}' \
+    and scenario_ra='{a['scenario_ra']}'"
+	
+	213 days per run
+	due to limit of 15 min 2020-06-01 to 2020-12-30

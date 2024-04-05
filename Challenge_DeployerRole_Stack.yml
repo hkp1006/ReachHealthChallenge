@@ -1,0 +1,83 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Deployment role for cloudformation stacks in multiple accounts
+Parameters:
+  DeploymentACC:
+    Type: String
+    Description: Insert the account number of the deployment account.
+    Default: 138723216472
+Resources:
+  DeploymentPipelineRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      Path: /
+      Policies:
+        - PolicyName: challenge-deployer-role
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              Resource:
+                - '*'
+              Effect: Allow
+              Action:
+                - 'sts:AssumeRole'
+                - 'cloudformation:*'
+                - 'ec2:*'
+                - 'sns:*'
+                - 's3:*'
+                - 'sqs:*'
+                - 'kms:*'
+                - 'logs:*'
+                - 'iam:*'
+                - 'iam:PassRole'
+                - 'iam:GetUser'
+                - 'iam:GetUserPolicy'
+                - 'iam:DetachRolePolicy'
+                - 'iam:AttachRolePolicy'
+                - 'iam:AddRoleToInstanceProfile'
+                - 'iam:List*'
+                - 'iam:GetInstanceProfile'
+                - 'iam:CreateInstanceProfile'
+                - 'iam:GetOpenIDConnectProvider'
+                - 'iam:CreateOpenIDConnectProvider'
+                - 'iam:GetRolePolicy'
+                - 'iam:DeleteUserPolicy'
+                - 'iam:DeleteRole'
+                - 'iam:CreateRole'
+                - 'iam:AttachRolePolicy'
+                - 'iam:PutRolePolicy'
+                - 'iam:CreatePolicy'
+                - 'lambda:*'
+                - 'ssm:PutParameter'
+                - 'ssm:AddTagsToResource'
+                - 'ssm:DeleteParameter'
+                - 'ssm:GetParameters'
+                - 'ssm:GetParameter'
+                - 'ssm:RemoveTagsFromResource'
+                - 'states:*'
+                - 'events:*'
+                - 'glue:*'
+                - 'codepipeline:*'
+                - 'cloudtrail:*'
+                - 'codecommit:*'
+                - 'codestar:*'
+                - 'cloudwatch:*'
+                - 'dynamodb:*'
+                - 'ecr:*'
+                - 'elasticmapreduce:*'
+                - 'iam:DeleteRolePolicy'
+                - 's3:PutReplicationConfiguration'
+                - 's3:PutBucketReplication'
+      RoleName: challenge-deployer-role
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - codepipeline.amazonaws.com
+                - codedeploy.amazonaws.com
+                - codebuild.amazonaws.com
+                - cloudformation.amazonaws.com
+                - s3.amazonaws.com
+              AWS: "arn:aws:iam::138723216472:root"
+            Action: 'sts:AssumeRole'

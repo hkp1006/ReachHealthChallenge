@@ -1,0 +1,118 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Action": [
+                "s3:GetBucketNotification",
+                "s3:GetObject",
+                "s3:GetObjectVersion",
+                "s3:ListAllMyBuckets",
+                "s3:ListBucket",
+                "s3:PutObject",
+                "s3:GetBucketLocation",
+				"s3:DeleteObject"
+            ],
+            "Resource": [
+                "*"
+            ],
+            "Effect": "Allow"
+        },
+        {
+            "Action": [
+                "lambda:InvokeFunction",
+                "lambda:UpdateFunctionCode"
+            ],
+            "Resource": [
+                "*"
+            ],
+            "Effect": "Allow"
+        },
+        {
+            "Action": [
+                "logs:*"
+            ],
+            "Resource": [
+                "*"
+            ],
+            "Effect": "Allow"
+        },
+        {
+            "Action": [
+                "sts:AssumeRole"
+            ],
+            "Resource": [
+                "*"
+            ],
+            "Effect": "Allow"
+        },
+        {
+            "Action": [
+                "cloudformation:*",
+                "cloudformation:ListStacks"
+            ],
+            "Resource": [
+                "*"
+            ],
+            "Effect": "Allow"
+        },
+        {
+            "Action": [
+                "athena:*"
+            ],
+            "Resource": [
+                "*"
+            ],
+            "Effect": "Allow"
+        },
+        {
+            "Action": [
+                "glue:*"
+            ],
+            "Resource": [
+                "*"
+            ],
+            "Effect": "Allow"
+        },
+        {
+            "Action": [
+                "cloudwatch:DeleteAlarms"
+            ],
+            "Resource": [
+                "*"
+            ],
+            "Effect": "Allow"
+        },
+		{
+            "Sid": "VisualEditor0",
+            "Effect": "Allow",
+            "Action": [
+                "codecommit:*",
+                "ec2:*",
+                "codebuild:UpdateProject",
+                "codebuild:BatchGetBuilds",
+                "cloudfront:*",
+                "codebuild:CreateProject",
+                "athena:*",
+                "codebuild:DeleteProject",
+                "codebuild:StartBuild",
+                "codepipeline:*",
+                "Glue:*",
+                "sts:AssumeRole",
+                "cloudformation:*",
+                "sns:*",
+                "sqs:*",
+                "logs:*",
+                "lambda:*",
+                "ssm:PutParameter",
+                "ssm:AddTagsToResource",
+                "ssm:DeleteParameter",
+                "ssm:GetParameters",
+                "ssm:GetParameter",
+                "ssm:RemoveTagsFromResource",
+                "states:*",
+                "events:*"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
